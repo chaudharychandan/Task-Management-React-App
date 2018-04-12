@@ -38,7 +38,7 @@ class Lists extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.lists}>
-        <Grid container>
+        <Grid container spacing={16}>
           {this.renderLists()}
           {this.renderNewList()}
         </Grid>

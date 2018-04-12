@@ -1,28 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
+import { BrowserRouter } from 'react-router-dom';
 import store from './store';
 
-import Boards from './scenes/Boards';
-import Lists from './scenes/Lists';
-import Header from './components/Header';
-
 import './index.scss';
+import App from './components/App';
 
-const App = () => {
-  return (
-    <div>
-      <Header />
-      <Switch>
-        <Route exact path='/boards' component={Boards} />
-        <Route path='/boards/:id/lists' component={Lists} />
-        <Redirect from="/" to="/boards" />
-      </Switch>
-    </div>
-  );
-}
+
 
 ReactDOM.render((
   <Provider store={store}>

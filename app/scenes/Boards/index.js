@@ -47,7 +47,7 @@ class Boards extends Component {
 
     return (
       <div className={classes.boards}>
-        <Grid container className={classes.gridList}>
+        <Grid container className={classes.gridList} spacing={16}>
           {this.renderBoards()}
           {this.renderNewBoard()}
         </Grid>
