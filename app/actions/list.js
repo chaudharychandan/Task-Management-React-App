@@ -1,5 +1,6 @@
 import {
-  ADD_LIST
+  ADD_LIST,
+  DELETE_LIST
 } from './types';
 
 export const addList = ({ boardId, list }) => {
@@ -9,3 +10,11 @@ export const addList = ({ boardId, list }) => {
     payload: { boardId, id, ...list, cards: [] }
   };
 };
+
+export const deleteList = ({ boardId, id }) => ({
+  type: DELETE_LIST,
+  payload: {
+    boardId,
+    id
+  }
+});

@@ -22,7 +22,7 @@ class Boards extends Component {
 
     return allIds.map((id) => {
       return (
-        <Grid item xs={4} key={id}>
+        <Grid item xs={12} sm={6} md={4} lg={3} key={id}>
           <Board board={byId[id]} />
         </Grid>
       );
@@ -32,7 +32,7 @@ class Boards extends Component {
   renderNewBoard = () => {
     const { classes } = this.props;
     return (
-      <Grid item xs={4} className={classes.gridTile}>
+      <Grid item xs={12} sm={6} md={4} lg={3} className={classes.gridTile}>
         <BoardCreate onCreate={this.onCreate} />
       </Grid>
     );
@@ -64,7 +64,7 @@ const mapStateToProps = ({ boards }) => {
 
 const styles = theme => ({
   boards: {
-    padding: '25px 10%'
+    padding: '25px 5%'
   },
   gridList: {
     width: '100%',

@@ -1,6 +1,7 @@
 import {
   FETCH_BOARDS,
-  ADD_BOARD
+  ADD_BOARD,
+  DELETE_BOARD
 } from './types';
 
 export const fetchBoards = () => {
@@ -14,3 +15,8 @@ export const addBoard = (board) => {
     payload: { ...board, id, lists: [] }
   }
 }
+
+export const deleteBoard = (board) => ({
+  type: DELETE_BOARD,
+  payload: board
+});

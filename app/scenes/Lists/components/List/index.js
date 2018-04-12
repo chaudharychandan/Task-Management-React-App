@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
+import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card';
 import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import { Typography, IconButton, Divider } from 'material-ui';
+import { IconButton, Divider } from 'material-ui';
 import { Delete as DeleteIcon } from 'material-ui-icons';
 import CardAdd from './components/CardAdd';
 import CardComponent from './components/Card';
 import { connect } from 'react-redux';
 
-import { addCard, removeCard } from '../../../../actions';
+import { addCard, deleteCard, deleteList } from '../../../../actions';
 
 class ListComponent extends Component {
-  onDeleteCard = (id, index) => {
+  onDeleteCard = (id) => {
     const listId = this.props.list.id;
-    this.props.removeCard({
+    this.props.deleteCard({
       listId,
-      id,
-      index
+      id
     });
   }
 
   renderCards = () => {
-    const { cardsById, list: { cards } } = this.props;
+    const { list: { cards } } = this.props;
 
-    return cards.map((id, index) => {
+    return cards.map((card) => {
+      const { id } = card;
       return (
-        <CardComponent card={cardsById[id]} onDeleteCard={() => this.onDeleteCard(id, index)} key={id} />
+        <CardComponent card={card} onDeleteCard={() => this.onDeleteCard(id)} key={id} />
       );
     });
   };
@@ -34,13 +34,22 @@ class ListComponent extends Component {
     this.props.addCard({ card, listId: id });
   }
 
+  onDeleteList = (list) => {
+    this.props.deleteList(list);
+  }
+
   render() {
     const { list } = this.props;
+    const actionButton = (
+      <IconButton aria-label="Delete" onClick={() => this.onDeleteList(list)}>
+        <DeleteIcon />
+      </IconButton>
+    );
 
     return (
       <Card>
+        <CardHeader title={list.name} action={actionButton}/>
         <CardContent>
-          <Typography variant="subheading">{list.name}</Typography>
           <List>
             {this.renderCards()}
           </List>
@@ -51,13 +60,12 @@ class ListComponent extends Component {
   }
 };
 
-const mapStateToProps = ({ lists, cards }, ownProps) => {
+const mapStateToProps = ({ lists }, ownProps) => {
   const { list: { id } } = ownProps;
   const list = lists.byId[id];
   return {
-    list,
-    cardsById: cards.byId
+    list
   };
 };
 
-export default connect(mapStateToProps, { addCard, removeCard })(ListComponent);
+export default connect(mapStateToProps, { addCard, deleteCard, deleteList })(ListComponent);

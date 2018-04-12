@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-import Card, { CardActions, CardContent, CardHeader } from 'material-ui/Card';
+import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import { Divider } from 'material-ui';
+import blue from 'material-ui/colors/blue';
+import { IconButton, Divider } from 'material-ui';
 import { Collapse } from 'material-ui/transitions';
-import { ExpandMore, ExpandLess, ExposureZero as ZeroIcon }from 'material-ui-icons';
+import { ExpandMore, ExpandLess, ExposureZero as ZeroIcon, Delete as DeleteIcon } from 'material-ui-icons';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+
+import { deleteBoard } from '../../../../actions';
 
 class Board extends Component {
   state = { open: false };
 
-  renderLists = () =>{
+  renderLists = () => {
     const listIds = this.props.board.lists;
     const  { lists } = this.props;
 
     return listIds.map((id) => {
+      const cardLength = lists[id].cards.length;
       return (
         <div key={id}>
           <ListItem>
             <ListItemText primary={lists[id].name} />
-            {`${lists[id].cards.length} cards`}
+            {cardLength > 0 ? (cardLength === 1 ? `${cardLength} card` : `${cardLength} cards`) : `no cards`}
           </ListItem>
           <Divider />
         </div>
@@ -42,19 +46,26 @@ class Board extends Component {
     }
   }
 
+  onDeleteBoard = (board) => {
+    this.props.deleteBoard(board);
+  }
+
   render() {
     const { classes } = this.props;
     const { board } = this.props;
+    const actionButton = (
+      <IconButton aria-label="Delete" onClick={() => this.onDeleteBoard(board)}>
+        <DeleteIcon className={classes.hoverColor} />
+      </IconButton>
+    );
 
     return (
       <Card className={classes.card}>
+        <Link to={`boards/${board.id}/lists`} className={classes.link}>
+          <CardHeader title={board.name} />
+        </Link>
         <CardContent>
           <List>
-            <ListItem>
-              <Link to={`boards/${board.id}/lists`} className={classes.link}>
-                <ListItemText primary={board.name}></ListItemText>
-              </Link>
-            </ListItem>
             <ListItem button onClick={this.handleExpandClick}>
               <ListItemText primary="Lists" />
               {this.renderExpandIcon()}
@@ -66,6 +77,9 @@ class Board extends Component {
             </Collapse>
           </List>
         </CardContent>
+        <CardActions>
+          {actionButton}
+        </CardActions>
       </Card>
     );
   }
@@ -80,6 +94,11 @@ const styles = theme => {
     },
     link: {
       textDecoration: 'none'
+    },
+    hoverColor: {
+      '&:hover': {
+        color: blue[500]
+      }
     }
   });
 };
@@ -90,4 +109,4 @@ const mapStateToProps = ({ lists }) => {
   }
 }
 
-export default compose(withStyles(styles), connect(mapStateToProps))(Board);
+export default compose(withStyles(styles), connect(mapStateToProps, { deleteBoard }))(Board);

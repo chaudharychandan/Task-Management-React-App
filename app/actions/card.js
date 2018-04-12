@@ -11,9 +11,9 @@ export const addCard = ({ listId, card }) => {
   };
 };
 
-export const removeCard = ({ listId, id, index }) => {
+export const deleteCard = ({ listId, id }) => {
   return {
     type: DELETE_CARD,
-    payload: { listId, id, index }
+    payload: { listId, id }
   };
 };
