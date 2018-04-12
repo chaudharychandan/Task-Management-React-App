@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
 import { IconButton, Divider } from 'material-ui';
-import { Close as CloseIcon } from 'material-ui-icons';
+import { Close as CloseIcon } from '@material-ui/icons';
 import { blue } from 'material-ui/colors';
 import { withStyles } from 'material-ui/styles';
 

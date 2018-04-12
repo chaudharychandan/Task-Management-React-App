@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TextField, Button, IconButton } from 'material-ui';
-import { Close as CloseIcon } from 'material-ui-icons';
+import { Close as CloseIcon } from '@material-ui/icons';
 import { withStyles } from 'material-ui/styles';
 
 class ListCreate extends Component {

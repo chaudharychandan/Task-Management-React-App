@@ -6,7 +6,7 @@ import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-
 import blue from 'material-ui/colors/blue';
 import { IconButton, Divider } from 'material-ui';
 import { Collapse } from 'material-ui/transitions';
-import { ExpandMore, ExpandLess, ExposureZero as ZeroIcon, Delete as DeleteIcon } from 'material-ui-icons';
+import { ExpandMore, ExpandLess, ExposureZero as ZeroIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
