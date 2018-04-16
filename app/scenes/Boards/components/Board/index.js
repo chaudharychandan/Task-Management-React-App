@@ -3,43 +3,44 @@ import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import blue from 'material-ui/colors/blue';
-import { IconButton, Divider } from 'material-ui';
+import { blue } from 'material-ui/colors';
+import { IconButton, Divider, Text } from 'material-ui';
 import { Collapse } from 'material-ui/transitions';
 import { ExpandMore, ExpandLess, ExposureZero as ZeroIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import { deleteBoard } from '../../../../actions';
+import { deleteBoard, fetchLists } from '../../../../actions';
 
 class Board extends Component {
   state = { open: false };
 
   renderLists = () => {
+    const { listsById, allIds } = this.props;
     const listIds = this.props.board.lists;
-    const  { lists } = this.props;
-
-    return listIds.map((id) => {
-      const cardLength = lists[id].cards.length;
-      return (
-        <div key={id}>
-          <ListItem>
-            <ListItemText primary={lists[id].name} />
-            {cardLength > 0 ? (cardLength === 1 ? `${cardLength} card` : `${cardLength} cards`) : `no cards`}
-          </ListItem>
-          <Divider />
-        </div>
-      );
-    })
+    if (allIds.length > 0) {
+      return listIds.map((id) => {
+        const cardLength = listsById[id].cards.length;
+        return (
+          <div key={id}>
+            <ListItem>
+              <ListItemText primary={listsById[id].name} />
+              { cardLength > 0 ? (cardLength === 1 ? `${cardLength} card` : `${cardLength} cards`) : `no cards` }
+            </ListItem>
+            <Divider />
+          </div>
+        );
+      });
+    }
   }
 
   handleExpandClick = (event) => {
     event.stopPropagation();
-    this.setState({open: !this.state.open});
+    this.props.board.lists.length > 0 ? this.setState({open: !this.state.open}) : Function.prototype;
   }
 
-  renderExpandIcon = () => {
-    if(this.props.board.lists.length>0) {
+  renderExpandIcon = (listLength) => {
+    if(listLength > 0) {
       return this.state.open  ? <ExpandLess /> : <ExpandMore />
     } else {
       return <ZeroIcon />
@@ -53,6 +54,8 @@ class Board extends Component {
   render() {
     const { classes } = this.props;
     const { board } = this.props;
+    const listLength = board.lists.length;
+
     const actionButton = (
       <IconButton aria-label="Delete" onClick={() => this.onDeleteBoard(board)}>
         <DeleteIcon className={classes.hoverColor} />
@@ -61,18 +64,18 @@ class Board extends Component {
 
     return (
       <Card className={classes.card}>
-        <Link to={`boards/${board.id}/lists`} className={classes.link}>
+        <Link to={`boards/${board._id}/lists`} className={classes.link}>
           <CardHeader title={board.name} />
         </Link>
         <CardContent>
           <List>
             <ListItem button onClick={this.handleExpandClick}>
               <ListItemText primary="Lists" />
-              {this.renderExpandIcon()}
+              {listLength ? listLength : ''}  {this.renderExpandIcon(listLength)}
             </ListItem>
             <Collapse in={this.state.open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                {this.renderLists()}
+                { this.state.open && this.renderLists() }
               </List>
             </Collapse>
           </List>
@@ -105,8 +108,9 @@ const styles = theme => {
 
 const mapStateToProps = ({ lists }) => {
   return {
-    lists : lists.byId
+    listsById: lists.byId,
+    allIds: lists.allIds
   }
 }
 
-export default compose(withStyles(styles), connect(mapStateToProps, { deleteBoard }))(Board);
+export default compose(withStyles(styles), connect(mapStateToProps, { deleteBoard, fetchLists }))(Board);

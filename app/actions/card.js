@@ -1,19 +1,34 @@
+import axios from 'axios';
 import {
   ADD_CARD,
-  DELETE_CARD
+  DELETE_CARD,
+  DOMAIN
 } from './types';
 
-export const addCard = ({ listId, card }) => {
-  const id = `${+new Date()}`;
-  return {
+const url = `${DOMAIN}/api/v1/lists`;
+
+export const addCard = ({ listId, card }) => async dispatch => {
+  const { data } = await axios({
+    method: 'patch',
+    url: `${url}/${listId}`,
+    data: card
+  });
+
+  dispatch({
     type: ADD_CARD,
-    payload: { listId, id, ...card }
-  };
+    payload: data
+  });
 };
 
-export const deleteCard = ({ listId, id }) => {
-  return {
+export const deleteCard = ({ listId, _id }) => async dispatch => {
+  await axios({
+    method: 'patch',
+    url: `${url}/${listId}`,
+    data: { _id }
+  });
+
+  dispatch({
     type: DELETE_CARD,
-    payload: { listId, id }
-  };
+    payload: { listId, _id }
+  });
 };

@@ -9,21 +9,22 @@ import { Grid } from 'material-ui';
 import Board from './components/Board';
 import BoardCreate from './components/BoardCreate';
 
-import { fetchBoards, addBoard } from '../../actions';
+import { fetchBoards, addBoard, fetchLists } from '../../actions';
 
 class Boards extends Component {
   componentWillMount() {
     this.props.fetchBoards();
+    this.props.fetchLists();
   }
 
   renderBoards = () => {
     const { classes } = this.props;
-    const { boards: { byId, allIds } } = this.props;
+    const { boardsById, boardIds } = this.props;
 
-    return allIds.map((id) => {
+    return boardIds.map((id) => {
       return (
         <Grid item xs={12} sm={6} md={4} lg={3} key={id}>
-          <Board board={byId[id]} />
+          <Board board={boardsById[id]} />
         </Grid>
       );
     });
@@ -58,7 +59,8 @@ class Boards extends Component {
 
 const mapStateToProps = ({ boards }) => {
   return {
-    boards
+    boardsById: boards.byId,
+    boardIds: boards.allIds,
   };
 };
 
@@ -75,4 +77,4 @@ const styles = theme => ({
   }
 });
 
-export default compose(withStyles(styles), connect(mapStateToProps, { fetchBoards, addBoard }))(Boards);
+export default compose(withStyles(styles), connect(mapStateToProps, { fetchBoards, addBoard, fetchLists }))(Boards);

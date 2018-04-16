@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import {
+  FETCH_LISTS,
   ADD_LIST,
   DELETE_LIST,
   ADD_CARD,
@@ -8,38 +9,44 @@ import {
   DELETE_BOARD
 } from '../actions/types';
 
+const setListsById = (state, action) => {
+  return action.payload.reduce((accumulator, list) => ({ ...accumulator, [list._id]: list }), {});
+}
+
 const addListEntry = (state, action) => {
   const { payload } = action;
-  const { id } = payload;
+  const { _id } = payload;
   return {
     ...state,
-    [id]: payload
+    [_id]: payload
   };
 };
 
 const deleteListEntry = (state, action) => {
-  const { payload: { id } } = action;
-  const { [id]: list, ...rest } = state;
+  const { payload: { _id } } = action;
+  const { [_id]: list, ...rest } = state;
 
   return rest;
 }
 
 const deleteListEntries = (state, action) => {
-  const { payload: { id } } = action;
+  const { payload: { _id } } = action;
   return Object.keys(state).reduce((newListsById, listId) => {
-    state[listId].boardId === id ? Function.prototype : newListsById[listId] = state[listId];
+    state[listId].boardId === _id ? Function.prototype : newListsById[listId] = state[listId];
     return newListsById;
   }, {});
 }
 
 const listsById = (state = {}, action) => {
   switch (action.type) {
+    case FETCH_LISTS:
+      return setListsById(state, action);
     case ADD_LIST:
       return addListEntry(state, action);
     case DELETE_LIST:
       return deleteListEntry(state, action);
     case ADD_CARD:
-      return addCard(state, action);
+      return updateList(state, action);
     case DELETE_CARD:
       return deleteCard(state, action);
     case DELETE_BOARD:
@@ -50,13 +57,13 @@ const listsById = (state = {}, action) => {
 };
 
 const addListId = (state, action) => {
-  const { payload: { id } } = action;
-  return state.concat(id);
+  const { payload: { _id } } = action;
+  return state.concat(_id);
 };
 
 const deleteListId = (state, action) => {
-  const { payload: { id } } = action;
-  return state.filter((item) => item !== id);
+  const { payload: { _id } } = action;
+  return state.filter((item) => item !== _id);
 }
 
 const deleteListIds = (state, action) => {
@@ -66,8 +73,14 @@ const deleteListIds = (state, action) => {
   });
 }
 
+const setListIds = (state, action) => {
+  return action.payload.map((list) => list._id);
+}
+
 const allLists = (state = [], action) => {
   switch (action.type) {
+    case FETCH_LISTS:
+      return setListIds(state, action);
     case ADD_LIST:
       return addListId(state, action);
     case DELETE_LIST:
@@ -79,28 +92,25 @@ const allLists = (state = [], action) => {
   }
 };
 
-const addCard = (state, action) => {
-  const { payload: { listId, ...card } } = action;
-  const list = state[listId];
+const updateList = (state, action) => {
+  const { payload } = action;
+  const { _id } = payload;
 
   return {
     ...state,
-    [listId]: {
-      ...list,
-      cards: list.cards.concat(card)
-    }
+    [_id]: payload
   };
 };
 
 const deleteCard = (state, action) => {
-  const { payload: { listId, id } } = action;
+  const { payload: { listId, _id } } = action;
   const list = state[listId];
 
   return {
     ...state,
     [listId]: {
       ...list,
-      cards: list.cards.filter((card) => card.id !== id)
+      cards: list.cards.filter((card) => card._id !== _id)
     }
   };
 };

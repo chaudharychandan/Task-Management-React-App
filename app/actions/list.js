@@ -1,20 +1,38 @@
+import axios from 'axios';
 import {
+  FETCH_LISTS,
   ADD_LIST,
-  DELETE_LIST
+  DELETE_LIST,
+  DOMAIN
 } from './types';
 
-export const addList = ({ boardId, list }) => {
-  const id = `${+new Date()}`;
-  return {
-    type: ADD_LIST,
-    payload: { boardId, id, ...list, cards: [] }
-  };
+const url = `${DOMAIN}/api/v1/lists`;
+
+export const fetchLists = () => async dispatch => {
+  const { data } = await axios.get(url);
+
+  dispatch({
+    type: FETCH_LISTS, payload: data
+  });
+}
+
+export const addList = (list) => async dispatch => {
+  const { data } = await axios({
+    method: 'post',
+    url,
+    data: list
+  });
+
+  dispatch({
+    type: ADD_LIST, payload: data
+  });
 };
 
-export const deleteList = ({ boardId, id }) => ({
-  type: DELETE_LIST,
-  payload: {
-    boardId,
-    id
-  }
-});
+export const deleteList = ({ _id }) => async dispatch => {
+  const { data } = await axios.delete(`${url}/${_id}`);
+
+  dispatch({
+    type: DELETE_LIST,
+    payload: data
+  });
+};
