@@ -16,6 +16,14 @@ export const fetchBoards = () => async dispatch => {
   });
 };
 
+export const fetchBoard = (id) => async dispatch => {
+  const { data } = await axios.get(`${url}/${id}`);
+
+  dispatch({
+    type: FETCH_BOARDS, payload: [data]
+  });
+};
+
 export const addBoard = (board) => async dispatch => {
   const { data } = await axios({
     method: 'post',

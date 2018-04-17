@@ -4,19 +4,32 @@ import { Grid } from 'material-ui';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 
-import { addList } from '../../actions';
+import { addList, fetchBoard, fetchLists } from '../../actions';
 
 import ListCreate from './components/ListCreate';
 import ListComponent from './components/List';
 
 class Lists extends Component {
   onCreate = (list) => {
-    const { match : { params : { id } }  } = this.props;
-    this.props.addList({ boardId: id, ...list });
+    const { boardId } = this.props;
+    this.props.addList({ boardId, ...list });
   }
 
   renderLists = () => {
-    const { listsById, listIds } = this.props;
+    const { listsById, board, boardId } = this.props;
+    let listIds, allIds;
+    if (board) {
+      listIds = board.lists;
+      const allIds = Object.keys(listsById);
+      if (listIds.length > 0 && allIds.length === 0) {
+        this.props.fetchLists(boardId);
+        return;
+      }
+    } else {
+      this.props.fetchBoard(boardId);
+      return;
+    }
+
     return listIds.map((id) => {
       return (
         <Grid item xs={12} sm={6} md={4} lg={3} key={id}>
@@ -54,11 +67,12 @@ const styles = theme => ({
 });
 
 const mapStateToProps = ({ boards, lists }, ownProps) => {
-  const { match : { params : { id } }  } = ownProps;
+  const { match : { params : { id } } } = ownProps;
   return {
-    listIds: boards.byId[id].lists,
-    listsById: lists.byId
+    board: boards.byId[id],
+    listsById: lists.byId,
+    boardId: id
   };
 };
 
-export default compose(withStyles(styles), connect(mapStateToProps, { addList }))(Lists);
+export default compose(withStyles(styles), connect(mapStateToProps, { addList, fetchBoard, fetchLists }))(Lists);

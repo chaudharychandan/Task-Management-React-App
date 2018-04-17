@@ -8,8 +8,9 @@ import {
 
 const url = `${DOMAIN}/api/v1/lists`;
 
-export const fetchLists = () => async dispatch => {
-  const { data } = await axios.get(url);
+export const fetchLists = (id) => async dispatch => {
+  const apiUrl = id ? `${url}?boardId=${id}` : url;
+  const { data } = await axios.get(apiUrl);
 
   dispatch({
     type: FETCH_LISTS, payload: data
