@@ -40,7 +40,7 @@ class BoardCreate extends Component {
             </TextField>
           </CardContent>
           <CardActions className={classes.actions}>
-            <Button type="submit" variant="raised" color="primary">Add</Button>
+            <Button type="submit" variant="raised" color="secondary">Add</Button>
           </CardActions>
         </Card>
       </form>

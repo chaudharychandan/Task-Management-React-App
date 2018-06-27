@@ -32,7 +32,7 @@ class CardAdd extends Component {
     if(name) {
       return (
         <div className={classes.actions}>
-          <Button variant="raised" color="primary" type="submit">
+          <Button variant="raised" color="secondary" type="submit">
             Save
           </Button>
           <IconButton onClick={this.onClose}>
