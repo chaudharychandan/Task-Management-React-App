@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Card, CardHeader, CardActions, CardContent } from '@material-ui/core';
 import { List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { blue } from '@material-ui/core/colors';
 import { IconButton, Divider } from '@material-ui/core';
 import { Delete as DeleteIcon } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
 import CardAdd from './components/CardAdd';
 import CardComponent from './components/Card';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import { addCard, deleteCard, deleteList } from '../../../../actions';
 
@@ -36,10 +39,10 @@ class ListComponent extends Component {
   }
 
   render() {
-    const { list } = this.props;
+    const { list, classes } = this.props;
     const actionButton = (
       <IconButton aria-label="Delete" onClick={() => this.onDeleteList(list)}>
-        <DeleteIcon />
+        <DeleteIcon className={classes.hoverColor} />
       </IconButton>
     );
 
@@ -57,6 +60,16 @@ class ListComponent extends Component {
   }
 };
 
+const styles = theme => {
+  return ({
+    hoverColor: {
+      '&:hover': {
+        color: blue[500]
+      }
+    }
+  });
+};
+
 const mapStateToProps = ({ lists }, ownProps) => {
   const { list: { _id } } = ownProps;
   const list = lists.byId[_id];
@@ -65,4 +78,4 @@ const mapStateToProps = ({ lists }, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { addCard, deleteCard, deleteList })(ListComponent);
+export default compose(withStyles(styles), connect(mapStateToProps, { addCard, deleteCard, deleteList }))(ListComponent);
