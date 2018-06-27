@@ -2,9 +2,10 @@ import axios from 'axios';
 import {
   FETCH_BOARDS,
   ADD_BOARD,
-  DELETE_BOARD,
-  DOMAIN
+  DELETE_BOARD
 } from './types';
+
+import { DOMAIN } from '../config';
 
 const url = `${DOMAIN}/api/v1/boards`
 

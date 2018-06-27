@@ -2,9 +2,10 @@ import axios from 'axios';
 import {
   FETCH_LISTS,
   ADD_LIST,
-  DELETE_LIST,
-  DOMAIN
+  DELETE_LIST
 } from './types';
+
+import { DOMAIN } from '../config';
 
 const url = `${DOMAIN}/api/v1/lists`;
 

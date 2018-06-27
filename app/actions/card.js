@@ -1,9 +1,10 @@
 import axios from 'axios';
 import {
   ADD_CARD,
-  DELETE_CARD,
-  DOMAIN
+  DELETE_CARD
 } from './types';
+
+import { DOMAIN } from '../config';
 
 const url = `${DOMAIN}/api/v1/lists`;
 

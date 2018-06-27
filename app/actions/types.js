@@ -8,5 +8,3 @@ export const DELETE_LIST = 'DELETE_LIST';
 
 export const ADD_CARD = 'ADD_CARD';
 export const DELETE_CARD = 'DELETE_CARD';
-
-export const DOMAIN = 'http://localhost:5000';
