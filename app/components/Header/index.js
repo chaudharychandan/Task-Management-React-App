@@ -12,12 +12,12 @@ class Header extends Component {
       <div>
         <AppBar position="static">
           <Toolbar>
-            <IconButton color="inherit" aria-label="Home" component={Link} to="/boards" className={classes.homeButton}>
+            <IconButton aria-label="Home" component={Link} to="/boards" className={classes.homeButton} color="secondary">
               <HomeIcon />
             </IconButton>
-            <Typography variant="title" color="inherit">
-              Trello
+            <Typography variant="title" className={classes.flex}>
             </Typography>
+            <Button color="secondary" variant="contained">Login</Button>
           </Toolbar>
         </AppBar>
       </div>
@@ -29,7 +29,10 @@ const styles = theme => {
   return ({
     homeButton: {
       marginRight: '24px'
-    }
+    },
+    flex: {
+      flex: 1,
+    },
   });
 };
 

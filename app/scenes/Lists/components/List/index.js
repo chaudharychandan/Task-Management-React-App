@@ -42,7 +42,7 @@ class ListComponent extends Component {
     const { list, classes } = this.props;
     const actionButton = (
       <IconButton aria-label="Delete" onClick={() => this.onDeleteList(list)}>
-        <DeleteIcon className={classes.hoverColor} />
+        <DeleteIcon className={classes.hoverColor} color="secondary" />
       </IconButton>
     );
 

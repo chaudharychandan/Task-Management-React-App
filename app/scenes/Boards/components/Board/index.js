@@ -58,7 +58,7 @@ class Board extends Component {
 
     const actionButton = (
       <IconButton aria-label="Delete" onClick={() => this.onDeleteBoard(board)}>
-        <DeleteIcon className={classes.hoverColor} />
+        <DeleteIcon className={classes.hoverColor} color="secondary"/>
       </IconButton>
     );
 
