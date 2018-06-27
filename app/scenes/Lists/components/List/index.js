@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardActions, CardContent } from '@material-ui/core';
-import { List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
-import { IconButton, Divider } from '@material-ui/core';
+import { Card, CardHeader, CardContent } from '@material-ui/core';
+import { List } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { Delete as DeleteIcon } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import CardAdd from './components/CardAdd';
 import CardComponent from './components/Card';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import classNames from 'classnames';
 
 import { addCard, deleteCard, deleteList } from '../../../../actions';
 
@@ -41,9 +41,10 @@ class ListComponent extends Component {
   render() {
     const { list, classes } = this.props;
     const actionButton = (
-      <IconButton aria-label="Delete" onClick={() => this.onDeleteList(list)}>
-        <DeleteIcon className={classes.hoverColor} color="secondary" />
-      </IconButton>
+      <Button className={classes.button} aria-label="Delete" color="secondary" variant="contained" size="small" onClick={() => this.onDeleteList(list)}>
+        <DeleteIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
+        Delete
+      </Button>
     );
 
     return (
@@ -62,11 +63,18 @@ class ListComponent extends Component {
 
 const styles = theme => {
   return ({
-    hoverColor: {
-      '&:hover': {
-        color: blue[500]
-      }
-    }
+    button: {
+      margin: theme.spacing.unit,
+    },
+    leftIcon: {
+      marginRight: theme.spacing.unit,
+    },
+    rightIcon: {
+      marginLeft: theme.spacing.unit,
+    },
+    iconSmall: {
+      fontSize: 20,
+    },
   });
 };
 

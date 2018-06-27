@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, CardActions, CardContent } from '@material-ui/core';
 import { TextField, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import { AddCircle as AddIcon } from '@material-ui/icons';
 
 class BoardCreate extends Component {
   state = {
@@ -40,7 +42,10 @@ class BoardCreate extends Component {
             </TextField>
           </CardContent>
           <CardActions className={classes.actions}>
-            <Button type="submit" variant="raised" color="secondary">Add</Button>
+            <Button type="submit" className={classes.button} aria-label="Delete" color="secondary"  variant="raised" size="small">
+              <AddIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
+              Add
+            </Button>
           </CardActions>
         </Card>
       </form>
@@ -66,7 +71,19 @@ const styles = theme => ({
   actions: {
     display: 'flex',
     justifyContent: 'flex-end'
-  }
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
 });
 
 export default withStyles(styles)(BoardCreate);

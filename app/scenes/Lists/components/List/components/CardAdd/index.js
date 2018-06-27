@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { TextField, Button, IconButton } from '@material-ui/core';
-import { Close as CloseIcon } from '@material-ui/icons';
+import { Close as CloseIcon, Save as SaveIcon } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 class CardAdd extends Component {
   state = {
@@ -32,7 +33,8 @@ class CardAdd extends Component {
     if(name) {
       return (
         <div className={classes.actions}>
-          <Button variant="raised" color="secondary" type="submit">
+          <Button variant="contained" color="secondary" className={classes.button} size="small" type="submit">
+            <SaveIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
             Save
           </Button>
           <IconButton onClick={this.onClose}>
@@ -74,7 +76,19 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
-  }
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
 });
 
 export default withStyles(styles)(CardAdd);

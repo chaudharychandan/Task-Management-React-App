@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { TextField, Button, IconButton } from '@material-ui/core';
-import { Close as CloseIcon } from '@material-ui/icons';
+import { Close as CloseIcon, AddCircle as AddIcon } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 class ListCreate extends Component {
   state = {
@@ -32,8 +33,9 @@ class ListCreate extends Component {
     if(name) {
       return (
         <div className={classes.actions}>
-          <Button variant="raised" color="secondary" type="submit">
-            Save
+          <Button variant="raised" color="secondary" size="small" type="submit" className={classes.button}>
+            <AddIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
+            Add
           </Button>
           <IconButton onClick={this.onClose}>
             <CloseIcon />
@@ -74,7 +76,19 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
-  }
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
 });
 
 export default withStyles(styles)(ListCreate);

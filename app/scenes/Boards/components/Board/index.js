@@ -4,11 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
 import { List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
-import { IconButton, Divider, Text } from '@material-ui/core';
+import { Divider, Text, Button } from '@material-ui/core';
 import { Collapse } from '@material-ui/core';
 import { ExpandMore, ExpandLess, ExposureZero as ZeroIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import classNames from 'classnames';
 
 import { deleteBoard, fetchLists } from '../../../../actions';
 
@@ -57,9 +58,10 @@ class Board extends Component {
     const listLength = board.lists.length;
 
     const actionButton = (
-      <IconButton aria-label="Delete" onClick={() => this.onDeleteBoard(board)}>
-        <DeleteIcon className={classes.hoverColor} color="secondary"/>
-      </IconButton>
+      <Button className={classes.button} aria-label="Delete" color="secondary" variant="contained" size="small" onClick={() => this.onDeleteBoard(board)}>
+        <DeleteIcon className={classNames(classes.leftIcon, classes.iconSmall)} />
+        Delete
+      </Button>
     );
 
     return (
@@ -98,11 +100,18 @@ const styles = theme => {
     link: {
       textDecoration: 'none'
     },
-    hoverColor: {
-      '&:hover': {
-        color: blue[500]
-      }
-    }
+    button: {
+      margin: theme.spacing.unit,
+    },
+    leftIcon: {
+      marginRight: theme.spacing.unit,
+    },
+    rightIcon: {
+      marginLeft: theme.spacing.unit,
+    },
+    iconSmall: {
+      fontSize: 20,
+    },
   });
 };
 
