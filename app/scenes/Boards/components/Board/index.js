@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { withStyles } from 'material-ui/styles';
-import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
-import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import { blue } from 'material-ui/colors';
-import { IconButton, Divider, Text } from 'material-ui';
-import { Collapse } from 'material-ui/transitions';
+import { withStyles } from '@material-ui/core/styles';
+import { Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { blue } from '@material-ui/core/colors';
+import { IconButton, Divider, Text } from '@material-ui/core';
+import { Collapse } from '@material-ui/core';
 import { ExpandMore, ExpandLess, ExposureZero as ZeroIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';

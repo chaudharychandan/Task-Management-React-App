@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, AppBar, IconButton, Toolbar, Typography } from 'material-ui';
+import { Button, AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { Home as HomeIcon } from '@material-ui/icons';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 class Header extends Component {
   render() {

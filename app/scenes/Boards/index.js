@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { compose } from 'recompose';
-import { withStyles } from 'material-ui/styles';
-import { Grid } from 'material-ui';
+import { withStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 
 import Board from './components/Board';
 import BoardCreate from './components/BoardCreate';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
-import { Grid } from 'material-ui';
+import { withStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 

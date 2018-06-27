@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Card, { CardActions, CardContent } from 'material-ui/Card';
-import { TextField, Button } from 'material-ui'
-import { withStyles } from 'material-ui/styles';
+import { Card, CardActions, CardContent } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles';
 
 class BoardCreate extends Component {
   state = {

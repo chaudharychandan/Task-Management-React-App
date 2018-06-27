@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { TextField, Button, IconButton } from 'material-ui';
+import { TextField, Button, IconButton } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 class ListCreate extends Component {
   state = {

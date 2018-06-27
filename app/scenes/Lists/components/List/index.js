@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card';
-import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import { IconButton, Divider } from 'material-ui';
+import { Card, CardHeader, CardActions, CardContent } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { IconButton, Divider } from '@material-ui/core';
 import { Delete as DeleteIcon } from '@material-ui/icons';
 import CardAdd from './components/CardAdd';
 import CardComponent from './components/Card';

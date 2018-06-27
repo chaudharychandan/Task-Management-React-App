@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
-import { IconButton, Divider } from 'material-ui';
+import { ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { IconButton, Divider } from '@material-ui/core';
 import { Close as CloseIcon } from '@material-ui/icons';
-import { blue } from 'material-ui/colors';
-import { withStyles } from 'material-ui/styles';
+import { blue } from '@material-ui/core/colors';
+import { withStyles } from '@material-ui/core/styles';
 
 class CardComponent extends Component {
   render() {
