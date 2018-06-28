@@ -7,7 +7,7 @@ import {
 
 import { DOMAIN } from '../config';
 
-const url = `${DOMAIN}/api/v1/boards`
+const url = `${DOMAIN}/api/v1/boards`;
 
 export const fetchBoards = () => async dispatch => {
   const { data } = await axios.get(url);

@@ -44,7 +44,7 @@ class Boards extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
 
     return (
       <div className={classes.boards}>
@@ -57,10 +57,11 @@ class Boards extends Component {
   }
 }
 
-const mapStateToProps = ({ boards }) => {
+const mapStateToProps = ({ boards, user }) => {
   return {
     boardsById: boards.byId,
     boardIds: boards.allIds,
+    user: user.profile
   };
 };
 
