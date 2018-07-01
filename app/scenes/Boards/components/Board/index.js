@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
-import { List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
-import { Divider, Text, Button } from '@material-ui/core';
+import { List, ListItem, ListItemText } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
+import { Divider, Button } from '@material-ui/core';
 import { Collapse } from '@material-ui/core';
 import { ExpandMore, ExpandLess, ExposureZero as ZeroIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
@@ -67,7 +67,7 @@ class Board extends Component {
     return (
       <Card className={classes.card}>
         <Link to={`boards/${board._id}/lists`} className={classes.link}>
-          <CardHeader title={board.name} />
+          <CardHeader title={board.name} classes={{ title: classes.linkHeader }}  />
         </Link>
         <CardContent>
           <List>
@@ -98,7 +98,12 @@ const styles = theme => {
       overflow: 'scroll'
     },
     link: {
-      textDecoration: 'none'
+      textDecoration: 'none',
+    },
+    linkHeader: {
+      '&:hover': {
+        color: red[600]
+      }
     },
     button: {
       margin: theme.spacing.unit,

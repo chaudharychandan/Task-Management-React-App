@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { blue, red } from '@material-ui/core/colors';
 
 import { Home, Boards, Lists } from '../../scenes';
 import Header from '../Header';
@@ -8,16 +9,14 @@ import Header from '../Header';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#62ebff',
-      main: '#00b8d4',
-      dark: '#0088a3',
-      contrastText: '#000000',
+      light: blue[300],
+      main: blue[500],
+      dark: blue[700],
     },
     secondary: {
-      light: '#fd558f',
-      main: '#c51162',
-      dark: '#8e0038',
-      contrastText: '#ffffff',
+      light: red[400],
+      main: red[600],
+      dark: red[900],
     },
   },
 });

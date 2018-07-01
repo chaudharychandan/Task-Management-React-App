@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Button, AppBar, IconButton, Toolbar, Typography, Avatar, Menu, MenuItem } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
 import { Home as HomeIcon } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -79,11 +80,11 @@ class Header extends Component {
       <div>
         <AppBar position="static">
           <Toolbar>
-            <IconButton aria-label="Home" component={Link} to="/" className={classes.homeButton} color="secondary">
+            <IconButton aria-label="Home" component={NavLink} to="/" activeClassName={classes.homeButton} color="secondary">
               <HomeIcon />
             </IconButton>
             <Typography variant="title" className={classes.flex}>
-              { user && <NavLink to="/boards">Boards</NavLink> }
+              { user && <NavLink to="/boards" className={classes.link}>Boards</NavLink> }
             </Typography>
             {this.renderUserStatus()}
           </Toolbar>
@@ -103,6 +104,13 @@ const styles = theme => {
     },
     avatar: {
       margin: 10,
+    },
+    link: {
+      textDecoration: 'none',
+      color: '#fff',
+      '&:hover': {
+        color: red[700]
+      }
     },
   });
 };
