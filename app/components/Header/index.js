@@ -80,7 +80,7 @@ class Header extends Component {
       <div>
         <AppBar position="static">
           <Toolbar>
-            <IconButton aria-label="Home" component={NavLink} to="/" activeClassName={classes.homeButton} color="secondary">
+            <IconButton aria-label="Home" component={NavLink} to="/" className={classes.homeButton} color="secondary">
               <HomeIcon />
             </IconButton>
             <Typography variant="title" className={classes.flex}>

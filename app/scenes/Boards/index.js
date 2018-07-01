@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { compose } from 'recompose';
@@ -18,7 +17,6 @@ class Boards extends Component {
   }
 
   renderBoards = () => {
-    const { classes } = this.props;
     const { boardsById, boardIds } = this.props;
 
     return boardIds.map((id) => {
@@ -44,7 +42,7 @@ class Boards extends Component {
   }
 
   render() {
-    const { classes, user } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.boards}>
@@ -57,11 +55,10 @@ class Boards extends Component {
   }
 }
 
-const mapStateToProps = ({ boards, user }) => {
+const mapStateToProps = ({ boards }) => {
   return {
     boardsById: boards.byId,
-    boardIds: boards.allIds,
-    user: user.profile
+    boardIds: boards.allIds
   };
 };
 
