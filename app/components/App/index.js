@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import Boards from '../../scenes/Boards';
-import Lists from '../../scenes/Lists';
+import { Home, Boards, Lists } from '../../scenes';
 import Header from '../Header';
 
 const theme = createMuiTheme({
@@ -29,9 +28,10 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Header />
         <Switch>
-          <Route exact path='/boards' component={Boards} />
+          <Route path="/" component={Home} exact />
+          <Route path='/boards' component={Boards} exact />
           <Route path='/boards/:id/lists' component={Lists} />
-          <Redirect from="/" to="/boards" />
+          <Redirect from="/" to="/" />
         </Switch>
       </MuiThemeProvider>
     );

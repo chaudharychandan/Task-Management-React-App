@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Button, AppBar, IconButton, Toolbar, Typography, Avatar, Menu, MenuItem } from '@material-ui/core';
-import { Home as HomeIcon, AccountCircle as AccountCircleIcon } from '@material-ui/icons';
+import { Home as HomeIcon } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -73,16 +73,17 @@ class Header extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
 
     return (
       <div>
         <AppBar position="static">
           <Toolbar>
-            <IconButton aria-label="Home" component={Link} to="/boards" className={classes.homeButton} color="secondary">
+            <IconButton aria-label="Home" component={Link} to="/" className={classes.homeButton} color="secondary">
               <HomeIcon />
             </IconButton>
             <Typography variant="title" className={classes.flex}>
+              { user && <NavLink to="/boards">Boards</NavLink> }
             </Typography>
             {this.renderUserStatus()}
           </Toolbar>
