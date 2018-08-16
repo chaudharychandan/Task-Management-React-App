@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {
   ADD_CARD,
-  DELETE_CARD
+  DELETE_CARD,
+  COMPLETE_CARD
 } from './types';
 
 import { DOMAIN } from '../config';
@@ -12,7 +13,7 @@ export const addCard = ({ listId, card }) => async dispatch => {
   const { data } = await axios({
     method: 'patch',
     url: `${url}/${listId}`,
-    data: card
+    data: { ...card, action: 'ADD' }
   });
 
   dispatch({
@@ -22,14 +23,27 @@ export const addCard = ({ listId, card }) => async dispatch => {
 };
 
 export const deleteCard = ({ listId, _id }) => async dispatch => {
-  await axios({
+  const { data } = await axios({
     method: 'patch',
     url: `${url}/${listId}`,
-    data: { _id }
+    data: { _id, action: 'DELETE' }
   });
 
   dispatch({
     type: DELETE_CARD,
-    payload: { listId, _id }
+    payload: data
+  });
+};
+
+export const updateCard = ({ listId, card }) => async dispatch => {
+  const { data } = await axios({
+    method: 'patch',
+    url: `${url}/${listId}`,
+    data: { ...card, action: 'UPDATE' }
+  });
+
+  dispatch({
+    type: COMPLETE_CARD,
+    payload: data
   });
 };

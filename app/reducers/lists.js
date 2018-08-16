@@ -6,6 +6,7 @@ import {
   DELETE_LIST,
   ADD_CARD,
   DELETE_CARD,
+  COMPLETE_CARD,
   DELETE_BOARD
 } from '../actions/types';
 
@@ -48,7 +49,9 @@ const listsById = (state = {}, action) => {
     case ADD_CARD:
       return updateList(state, action);
     case DELETE_CARD:
-      return deleteCard(state, action);
+      return updateList(state, action);
+    case COMPLETE_CARD:
+      return updateList(state, action);
     case DELETE_BOARD:
       return deleteListEntries(state, action);
     default:
@@ -99,19 +102,6 @@ const updateList = (state, action) => {
   return {
     ...state,
     [_id]: payload
-  };
-};
-
-const deleteCard = (state, action) => {
-  const { payload: { listId, _id } } = action;
-  const list = state[listId];
-
-  return {
-    ...state,
-    [listId]: {
-      ...list,
-      cards: list.cards.filter((card) => card._id !== _id)
-    }
   };
 };
 

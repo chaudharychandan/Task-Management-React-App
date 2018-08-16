@@ -10,12 +10,18 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import classNames from 'classnames';
 
-import { addCard, deleteCard, deleteList } from '../../../../actions';
+import { addCard, deleteCard, deleteList, updateCard } from '../../../../actions';
 
 class ListComponent extends Component {
   onDeleteCard = (_id) => {
     const listId = this.props.list._id;
     this.props.deleteCard({ listId, _id });
+  }
+
+  onUpdateCard = (card) => {
+    const listId = this.props.list._id;
+    const updatedCard = { ...card, isComplete: true };
+    this.props.updateCard({ listId, card: updatedCard });
   }
 
   renderCards = () => {
@@ -24,7 +30,11 @@ class ListComponent extends Component {
     return cards.map((card) => {
       const { _id } = card;
       return (
-        <CardComponent card={card} onDeleteCard={() => this.onDeleteCard(_id)} key={_id} />
+        <CardComponent
+          card={card}
+          onDeleteCard={() => this.onDeleteCard(_id)}
+          onUpdateCard={() => this.onUpdateCard(card)}
+          key={_id} />
       );
     });
   };
@@ -86,4 +96,4 @@ const mapStateToProps = ({ lists }, ownProps) => {
   };
 };
 
-export default compose(withStyles(styles), connect(mapStateToProps, { addCard, deleteCard, deleteList }))(ListComponent);
+export default compose(withStyles(styles), connect(mapStateToProps, { addCard, deleteCard, deleteList, updateCard }))(ListComponent);
